@@ -1,11 +1,12 @@
 <template>
-  <div class="home">
-    This is Home.
+  <div class="about">
+    <h1>テスト</h1>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-export default class Home extends Vue {}
+@Component
+export default class About extends Vue {}
 </script>
