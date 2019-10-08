@@ -14,6 +14,6 @@ import MarkdownText from '@/components/atoms/MarkdownText.vue';
   },
 })
 export default class About extends Vue {
-  private textPass = '/introduction/chandai.md';
+  private textPass = 'introduction/chandai.md';
 }
 </script>

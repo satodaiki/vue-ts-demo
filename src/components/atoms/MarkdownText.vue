@@ -6,9 +6,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import axios from 'axios';
 
 @Component
 export default class MarkdownText extends Vue {
+
+  public markdown = require('markdown').markdown;
+
+  public baseUrl: string = process.env.VUE_APP_BASE_URL;
 
   @Prop({
     validator(value) {
@@ -20,11 +25,14 @@ export default class MarkdownText extends Vue {
 
   get convertMarkdown() {
 
-    const markdown = require('markdown');
-    const fs = require('fs');
+    let response = '';
+    try {
+      response = await axios.get(this.baseUrl + this.textPass);
+    } catch (error) {
+      throw error;
+    }
 
-    const markdownText = fs.readFileSync(this.textPass, 'utf8');
-    return markdown.toHTML(markdownText);
+    return response;
   }
 
 }
