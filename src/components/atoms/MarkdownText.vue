@@ -1,12 +1,10 @@
 <template>
-  <p class="markdown-text">
-    {{ convertMarkdown }}
-  </p>
+  <div class="markdown-text" v-html="markdownText"></div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import axios from 'axios';
+import Axios from 'axios';
 
 @Component
 export default class MarkdownText extends Vue {
@@ -14,6 +12,8 @@ export default class MarkdownText extends Vue {
   public markdown = require('markdown').markdown;
 
   public baseUrl: string = process.env.VUE_APP_BASE_URL;
+
+  public markdownText: string = '';
 
   @Prop({
     validator(value) {
@@ -23,17 +23,11 @@ export default class MarkdownText extends Vue {
   })
   public textPass!: string;
 
-  get convertMarkdown() {
-
-    let response = '';
-    try {
-      response = await axios.get(this.baseUrl + this.textPass);
-    } catch (error) {
-      throw error;
-    }
-
-    return response;
+  private mounted() {
+    Axios.get(this.baseUrl + this.textPass)
+      .then((response) => (
+        this.markdownText = this.markdown.toHTML(response.data)
+      ));
   }
-
 }
 </script>
