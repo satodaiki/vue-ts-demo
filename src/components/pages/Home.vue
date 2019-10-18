@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    This is Home.
+    Hello Chandai World.
   </div>
 </template>
 
